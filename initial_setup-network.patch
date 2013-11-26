@@ -1,6 +1,6 @@
 diff -up usr/lib/python2.7/site-packages/initial_setup/__main__.py.orig usr/lib/python2.7/site-packages/initial_setup/__main__.py
---- usr/lib/python2.7/site-packages/initial_setup/__main__.py.orig	2013-06-12 14:11:07.000000000 +0200
-+++ usr/lib/python2.7/site-packages/initial_setup/__main__.py	2013-07-17 14:44:56.399291996 +0200
+--- usr/lib/python2.7/site-packages/initial_setup/__main__.py.orig	2013-11-24 23:07:00.983452133 -0500
++++ usr/lib/python2.7/site-packages/initial_setup/__main__.py	2013-11-24 23:19:55.498176897 -0500
 @@ -1,8 +1,25 @@
  #!/bin/python
 +
@@ -42,26 +42,15 @@ diff -up usr/lib/python2.7/site-packages/initial_setup/__main__.py.orig usr/lib/
  from pyanaconda.addons import collect_addon_paths
  
  addon_paths = ["/usr/share/initial-setup/modules", "/usr/share/anaconda/addons"]
-@@ -43,6 +52,10 @@ anaconda_log.init()
- from pyanaconda.threads import initThreading
- initThreading()
- 
-+# initialize network logging (needed by the Network spoke that may be shown)
-+from pyanaconda.network import setup_ifcfg_log
-+setup_ifcfg_log()
-+
- from pyanaconda import kickstart
- 
- # Construct a commandMap with the supported Anaconda's commands only
-@@ -55,6 +68,7 @@ kickstart_commands = ["user",
+@@ -59,6 +68,7 @@ kickstart_commands = ["user",
                        "logging",
                        "selinux",
                        "firewall",
-+                      "network"
++                      "network",
                        ]
  
  commandMap = dict((k, kickstart.commandMap[k]) for k in kickstart_commands)
-@@ -69,6 +83,8 @@ try:
+@@ -73,6 +83,8 @@ try:
  except pykickstart.errors.KickstartError as kserr:
      sys.exit(1)
  
@@ -70,7 +59,7 @@ diff -up usr/lib/python2.7/site-packages/initial_setup/__main__.py.orig usr/lib/
  if mode == "gui":
      # Import IS gui specifics
      import gui
-@@ -99,10 +115,13 @@ ret = ui.run()
+@@ -103,10 +115,13 @@ ret = ui.run()
  if ret == False:
      sys.exit(0)
  
@@ -85,7 +74,7 @@ diff -up usr/lib/python2.7/site-packages/initial_setup/__main__.py.orig usr/lib/
  
  # data.selinux
  # data.firewall
-@@ -111,7 +130,7 @@ sections = [data.keyboard, data.lang]
+@@ -115,7 +130,7 @@ sections = [data.keyboard, data.lang]
  for section in sections:
      if section.seen:
          continue
@@ -94,7 +83,7 @@ diff -up usr/lib/python2.7/site-packages/initial_setup/__main__.py.orig usr/lib/
  
  # Prepare the user database tools
  u = Users()
-@@ -120,10 +139,10 @@ sections = [data.group, data.user, data.
+@@ -124,10 +139,10 @@ sections = [data.group, data.user, data.
  for section in sections:
      if section.seen:
          continue

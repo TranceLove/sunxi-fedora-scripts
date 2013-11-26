@@ -81,15 +81,8 @@ pushd usr/lib > /dev/null
 popd > /dev/null
 
 if [ -z "$NOCOPY" ]; then
-    # Make initial-setup not force a passwd change when there is no rtc
-    patch -p0 < $SCRIPTS/anaconda-users.patch
     # Add network config to initial setup
-    patch -p0 < $SCRIPTS/anaconda-network.patch
-    patch -p0 < $SCRIPTS/anaconda-simpleconfig.patch
     patch -p0 < $SCRIPTS/initial_setup-network.patch
-    # Actually safe selected timezone settings
-    patch -p0 < $SCRIPTS/anaconda-ntp.patch
-    patch -p0 < $SCRIPTS/initial_setup-timezone.patch
 fi
 
 popd > /dev/null
