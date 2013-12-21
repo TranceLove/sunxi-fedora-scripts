@@ -125,7 +125,7 @@ popd
 pushd sunxi-fedora-scripts
 [ -z "$NOCHECKOUT" ] && git checkout $SCRIPTS_TAG
 [ -z "$NOCLEAN" ] && git clean -dxf
-../u-boot-sunxi/Mele_A1000/tools/mkenvimage -s 131072 \
+../u-boot-sunxi/A10_MID_1GB/tools/mkenvimage -s 131072 \
   -o $DESTDIR/uboot/boards/uEnv-img.bin uEnv-full.txt
 mkimage -C none -A arm -T script -d boot.cmd $DESTDIR/uboot/boot.scr
 cp -p boot.cmd README select-board.sh $DESTDIR/uboot
