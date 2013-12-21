@@ -145,7 +145,7 @@ tar --group=root --owner=root -czf $DESTDIR/uboot.tar.gz *
 popd
 
 pushd $DESTDIR/rootfs
-tar --group=root --owner=root -czf $DESTDIR/rootfs.tar.gz .rootfs-repartition *
+tar --group=root --owner=root -czf $DESTDIR/rootfs.tar.gz *
 popd
 
 echo "Successfully generated uboot.tar.gz and rootfs.tar.gz"
