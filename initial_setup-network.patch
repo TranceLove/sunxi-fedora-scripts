@@ -1,9 +1,8 @@
 diff -up usr/lib/python2.7/site-packages/initial_setup/__main__.py.orig usr/lib/python2.7/site-packages/initial_setup/__main__.py
---- usr/lib/python2.7/site-packages/initial_setup/__main__.py.orig	2013-11-24 23:07:00.983452133 -0500
-+++ usr/lib/python2.7/site-packages/initial_setup/__main__.py	2013-11-24 23:19:55.498176897 -0500
-@@ -1,8 +1,25 @@
+--- usr/lib/python2.7/site-packages/initial_setup/__main__.py.orig	2013-12-22 16:20:45.208676000 +0800
++++ usr/lib/python2.7/site-packages/initial_setup/__main__.py	2013-12-22 16:41:48.167218000 +0800
+@@ -1,8 +1,24 @@
  #!/bin/python
-+
 +# set the root path to / so the imported spokes
 +# know where to apply their changes
 +from pyanaconda import constants
@@ -27,7 +26,7 @@ diff -up usr/lib/python2.7/site-packages/initial_setup/__main__.py.orig usr/lib/
  
  if "DISPLAY" in os.environ and os.environ["DISPLAY"]:
      mode="gui"
-@@ -16,14 +33,6 @@ if mode == "gui":
+@@ -16,14 +32,6 @@ if mode == "gui":
      for p in os.environ.get("ANACONDA_WIDGETS_OVERRIDES", "").split(":"):
          gi.overrides.__path__.insert(0, p)
  
@@ -42,7 +41,7 @@ diff -up usr/lib/python2.7/site-packages/initial_setup/__main__.py.orig usr/lib/
  from pyanaconda.addons import collect_addon_paths
  
  addon_paths = ["/usr/share/initial-setup/modules", "/usr/share/anaconda/addons"]
-@@ -59,6 +68,7 @@ kickstart_commands = ["user",
+@@ -59,6 +67,7 @@ kickstart_commands = ["user",
                        "logging",
                        "selinux",
                        "firewall",
@@ -50,7 +49,7 @@ diff -up usr/lib/python2.7/site-packages/initial_setup/__main__.py.orig usr/lib/
                        ]
  
  commandMap = dict((k, kickstart.commandMap[k]) for k in kickstart_commands)
-@@ -73,6 +83,8 @@ try:
+@@ -73,6 +82,8 @@ try:
  except pykickstart.errors.KickstartError as kserr:
      sys.exit(1)
  
@@ -59,7 +58,7 @@ diff -up usr/lib/python2.7/site-packages/initial_setup/__main__.py.orig usr/lib/
  if mode == "gui":
      # Import IS gui specifics
      import gui
-@@ -103,10 +115,13 @@ ret = ui.run()
+@@ -103,10 +114,13 @@ ret = ui.run()
  if ret == False:
      sys.exit(0)
  
@@ -69,12 +68,12 @@ diff -up usr/lib/python2.7/site-packages/initial_setup/__main__.py.orig usr/lib/
  # Do not execute sections that were part of the original
  # anaconda kickstart file (== have .seen flag set)
  
--sections = [data.keyboard, data.lang]
-+sections = [data.keyboard, data.lang, data.network]
+-sections = [data.keyboard, data.lang, data.timezone]
++sections = [data.keyboard, data.lang, data.timezone, data.network]
  
  # data.selinux
  # data.firewall
-@@ -115,7 +130,7 @@ sections = [data.keyboard, data.lang]
+@@ -114,7 +128,7 @@ sections = [data.keyboard, data.lang, da
  for section in sections:
      if section.seen:
          continue
@@ -83,7 +82,7 @@ diff -up usr/lib/python2.7/site-packages/initial_setup/__main__.py.orig usr/lib/
  
  # Prepare the user database tools
  u = Users()
-@@ -124,10 +139,10 @@ sections = [data.group, data.user, data.
+@@ -123,10 +137,10 @@ sections = [data.group, data.user, data.
  for section in sections:
      if section.seen:
          continue
