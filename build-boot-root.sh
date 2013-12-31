@@ -38,6 +38,7 @@
 
 KERNER_VER=3.4
 A10_BOARDS="A10_MID_1GB"
+A10_BOARD_FEXS="A10_MID_1GB meep1"
 UBOOT_TAG=sunxi
 KERNEL_CONFIG_TAG=fedora-19-13102013-meep1
 KERNEL_TAG=fedora-19-r2-meep1
@@ -88,12 +89,15 @@ pushd sunxi-boards
 [ -z "$NOCHECKOUT" ] && git checkout $SUNXI_BOARDS_TAG
 [ -z "$NOCLEAN" ] && git clean -dxf
 for lcd in "" "-lcd7" "-lcd10"; do
-    for i in $A10_BOARDS; do
-        if [ ! -f sys_config/a10/$i$lcd.fex ]; then
+    for i in $A10_BOARD_FEXS; do
+        if [ ! -d $DESTDIR/uboot/boards/sun4i/$i ]; then
+            mkdir -p $DESTDIR/uboot/boards/sun4i/$i
+        fi
+        if [ ! -f sys_config/a10/${i,,}$lcd.fex ]; then
             continue
         fi
-        cp -p sys_config/a10/$i$lcd.fex $DESTDIR/uboot/boards/sun4i/$i
-        fex2bin sys_config/a10/$i$lcd.fex \
+        cp -p sys_config/a10/${i,,}$lcd.fex $DESTDIR/uboot/boards/sun4i/$i
+        fex2bin sys_config/a10/${i,,}$lcd.fex \
             $DESTDIR/uboot/boards/sun4i/$i/script$lcd.bin
     done
 done
@@ -125,9 +129,9 @@ popd
 pushd sunxi-fedora-scripts
 [ -z "$NOCHECKOUT" ] && git checkout $SCRIPTS_TAG
 [ -z "$NOCLEAN" ] && git clean -dxf
-../u-boot-sunxi/A10_MID_1GB/tools/mkenvimage -s 131072 \
-  -o $DESTDIR/uboot/boards/uEnv-img.bin uEnv-full.txt
+../u-boot-sunxi/A10_MID_1GB/tools/mkenvimage -s 131072 -o $DESTDIR/uboot/boards/uEnv-img.bin uEnv-full.txt
 mkimage -C none -A arm -T script -d boot.cmd $DESTDIR/uboot/boot.scr
+cp -p $DESTDIR/uboot/boards/sun4i/A10_MID_1GB/u-boot-sunxi-with-spl.bin $DESTDIR/uboot/boards/sun4i/meep1
 cp -p boot.cmd README select-board.sh $DESTDIR/uboot
 cp -p uEnv-boot.txt $DESTDIR/uboot/uEnv.txt
 cp -p build-boot-root.sh build-image.sh $DESTDIR/uboot/scripts
