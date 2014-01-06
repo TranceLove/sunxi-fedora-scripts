@@ -80,22 +80,22 @@ mkdir $DESTDIR/uboot/boards
 # Note the changing board configs always force a rebuild
 mkdir $DESTDIR/uboot/boards/sun4i
 for i in $A10_BOARDS; do
-    make -j8 CROSS_COMPILE=arm-linux-gnueabihf- O=$i ${i}_config
-    make -j8 CROSS_COMPILE=arm-linux-gnueabihf- O=$i
+    make -j4 CROSS_COMPILE=arm-linux-gnueabihf- O=$i ${i}_config
+    make -j4 CROSS_COMPILE=arm-linux-gnueabihf- O=$i
     mkdir $DESTDIR/uboot/boards/sun4i/$i
     cp $i/u-boot-sunxi-with-spl.bin $DESTDIR/uboot/boards/sun4i/$i
 done
 mkdir $DESTDIR/uboot/boards/sun5i
 for i in $A13_BOARDS; do
-    make -j8 CROSS_COMPILE=arm-linux-gnueabihf- O=$i ${i}_config
-    make -j8 CROSS_COMPILE=arm-linux-gnueabihf- O=$i
+    make -j4 CROSS_COMPILE=arm-linux-gnueabihf- O=$i ${i}_config
+    make -j4 CROSS_COMPILE=arm-linux-gnueabihf- O=$i
     mkdir $DESTDIR/uboot/boards/sun5i/$i
     cp $i/u-boot-sunxi-with-spl.bin $DESTDIR/uboot/boards/sun5i/$i
 done
 mkdir $DESTDIR/uboot/boards/sun7i
 for i in $A20_BOARDS; do
-    make -j8 CROSS_COMPILE=arm-linux-gnueabihf- O=$i ${i}_config
-    make -j8 CROSS_COMPILE=arm-linux-gnueabihf- O=$i
+    make -j4 CROSS_COMPILE=arm-linux-gnueabihf- O=$i ${i}_config
+    make -j4 CROSS_COMPILE=arm-linux-gnueabihf- O=$i
     mkdir $DESTDIR/uboot/boards/sun7i/$i
     cp $i/u-boot-sunxi-with-spl.bin $DESTDIR/uboot/boards/sun7i/$i
 done
@@ -150,9 +150,9 @@ mkdir -p sun4i sun5i sun7i
 cp ../sunxi-kernel-config/kernel-$KERNER_VER-armv7hl-sun4i.config sun4i/.config
 cp ../sunxi-kernel-config/kernel-$KERNER_VER-armv7hl-sun5i.config sun5i/.config
 cp ../sunxi-kernel-config/kernel-$KERNER_VER-armv7hl-sun7i.config sun7i/.config
-make O=sun4i ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- CONFIG_DEBUG_SECTION_MISMATCH=y -j8 uImage modules
-make O=sun5i ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- CONFIG_DEBUG_SECTION_MISMATCH=y -j8 uImage modules
-make O=sun7i ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- CONFIG_DEBUG_SECTION_MISMATCH=y -j8 uImage modules
+make O=sun4i ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- CONFIG_DEBUG_SECTION_MISMATCH=y -j4 uImage modules
+make O=sun5i ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- CONFIG_DEBUG_SECTION_MISMATCH=y -j4 uImage modules
+make O=sun7i ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- CONFIG_DEBUG_SECTION_MISMATCH=y -j4 uImage modules
 
 cp sun4i/arch/arm/boot/uImage $DESTDIR/uboot/uImage.sun4i
 cp sun5i/arch/arm/boot/uImage $DESTDIR/uboot/uImage.sun5i
