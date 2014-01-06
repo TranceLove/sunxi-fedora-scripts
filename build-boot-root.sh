@@ -176,6 +176,7 @@ pushd sunxi-fedora-scripts
 ../u-boot-sunxi/mele_a1000/tools/mkenvimage -s 131072 \
   -o $DESTDIR/uboot/boards/uEnv-img.bin uEnv-full.txt
 mkimage -C none -A arm -T script -d boot.cmd $DESTDIR/uboot/boot.scr
+cp -p $DESTDIR/uboot/boards/sun4i/a10_mid_1gb/u-boot-sunxi-with-spl.bin $DESTDIR/uboot/boards/sun4i/meep1
 cp -p boot.cmd README select-board.sh $DESTDIR/uboot
 cp -p uEnv-boot.txt $DESTDIR/uboot/uEnv.txt
 cp -p build-boot-root.sh build-image.sh $DESTDIR/uboot/scripts
