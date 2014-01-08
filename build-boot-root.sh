@@ -19,10 +19,11 @@
 # this script found on your sdcard, as that contains all the git-tags used
 # to build the sdcard image.
 #
-# This script must be run under Fedora-18 x86_64, with the following
+# This script must be run under Ubuntu 12.04/Linux Mint 13 x86_64, with the following
 # packages installed:
-# gcc-arm-linux-gnu
-# uboot-tools
+# build-essential
+# gcc-arm-linux-gnueabihf
+# u-boot-tools
 #
 # Also the fex2bin utility from:
 # https://github.com/linux-sunxi/sunxi-tools.git
@@ -30,11 +31,11 @@
 #
 # This script must be run from a directory which contains clones of the
 # following git repositories:
-# https://github.com/jwrdegoede/sunxi-fedora-scripts.git
-# https://github.com/jwrdegoede/u-boot-sunxi.git
-# https://github.com/jwrdegoede/sunxi-boards.git
-# https://github.com/jwrdegoede/sunxi-kernel-config.git
-# https://github.com/jwrdegoede/linux-sunxi.git
+# https://github.com/TranceLove/sunxi-fedora-scripts.git
+# https://github.com/linux-sunxi/u-boot-sunxi.git
+# https://github.com/TranceLove/sunxi-boards.git
+# https://github.com/TranceLove/sunxi-kernel-config.git
+# https://github.com/linux-sunxi/linux-sunxi.git
 
 KERNER_VER=3.4
 A10_BOARDS="a10_mid_1gb ba10_tv_box coby_mid7042 coby_mid8042 coby_mid9742 cubieboard cubieboard_512 dns_m82 eoma68_a10 gooseberry_a721 h6 hackberry hyundai_a7hd inet97f-ii jesurun-q5 marsboard_a10 mele_a1000 mele_a1000g mele_a3700 mini-x mini-x-1gb mk802 mk802-1gb mk802ii pcduino pov_protab2_ips9 pov_protab2_ips_3g sanei_n90 uhost_u1a"
